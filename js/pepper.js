@@ -33,6 +33,13 @@ $(function(){
             qis.service('ALTabletService').done(function(ins){
                 als.alALTabletService = ins;
             });
+            qis.service('ALAutonomousLife').done(function(ins){
+                als.alALAutonomousLife = ins;
+            });
+            qis.service('ALBehaviorManager').done(function(ins){
+                als.alALBehaviorManager = ins;
+            });
+            //als.alALAudioDevice.setOutputVolume(0);
         })
         .on('disconnect', function(){
             // 接続断
@@ -55,7 +62,9 @@ $(function(){
         als.alALAudioDevice.setOutputVolume(40);
     });
     $('#sleep-btn').on('click', function(){
-        als.alMotion.rest();
+        //オートノマスを切る
+        als.alALAutonomousLife.setState("disabled");
+        //als.alMotion.rest();
     });
     $('#wakeup-btn').on('click', function(){
         als.alMotion.wakeUp();
@@ -71,9 +80,11 @@ $(function(){
         als.alAnimatedSpeech.say("おはようございます");
     });
     $('#action000-btn').on('click', function(){
-        //als.alMotion.changeAngles('RShoulderPitch',  -2, 0.08);
-        //als.alMotion.stopAllBehaviors();
-        als.alMotion.goToPosture("StandInit", 0.5)
+        //起動中のBehaviorを全て終了
+        als.alALBehaviorManager.stopAllBehaviors();
+        //ポーズをリセットする
+        als.alMotion.goToPosture("StandInit", 0.5);
+        //全ての動作を止める
         als.alMotion.setBreathEnabled("All", false);
     });
     $('#action001-btn').on('click', function(){
