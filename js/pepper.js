@@ -39,6 +39,15 @@ $(function(){
             qis.service('ALBehaviorManager').done(function(ins){
                 als.alALBehaviorManager = ins;
             });
+            qis.service('ALBattery').done(function(ins){
+                als.alALBattery = ins;
+            });
+            /*
+            qis.service('ALRobotPosturer').done(function(ins){
+                als.alRobotPosturer = ins;
+            });
+            */
+            //alRobotPosturer
             //als.alALAudioDevice.setOutputVolume(0);
         })
         .on('disconnect', function(){
@@ -87,29 +96,51 @@ $(function(){
         //全ての動作を止める
         als.alMotion.setBreathEnabled("All", false);
     });
+
+
+    //http://doc.aldebaran.com/2-1/family/nao_dcm/actuator_sensor_names.html
     $('#action001-btn').on('click', function(){
-        als.alMotion.changeAngles('RShoulderPitch',  -2, 0.08);
+        var _degress = $('#degress').val();
+        var _rad = toRadian(_degress);
+        als.alMotion.changeAngles('RShoulderPitch',  _rad, 0.08);
     });
     $('#action002-btn').on('click', function(){
-        als.alMotion.changeAngles('LShoulderPitch',  -2, 0.08);
+        var _degress = $('#degress').val();
+        var _rad = toRadian(_degress);
+        als.alMotion.changeAngles('LShoulderPitch',  _rad, 0.08);
     });
     $('#action003-btn').on('click', function(){
-        als.alMotion.changeAngles('RShoulderPitch',  2, 0.08);
+        var _degress = $('#degress').val();
+        var _rad = toRadian(_degress);
+        als.alMotion.changeAngles('RElbowRoll',  _rad, 0.08);
     });
     $('#action004-btn').on('click', function(){
-        als.alMotion.changeAngles('LShoulderPitch',  2, 0.08);
+        var _degress = $('#degress').val();
+        var _rad = toRadian(_degress);
+        als.alMotion.changeAngles('LElbowRoll',  _rad, 0.08);
     });
     $('#action005-btn').on('click', function(){
-        als.alMotion.changeAngles('RShoulderPitch',  -2, 0.08);
+        var _degress = $('#degress').val();
+        var _rad = toRadian(_degress);
+        als.alMotion.changeAngles('HeadPitch',  _rad, 0.08);
     });
     $('#action006-btn').on('click', function(){
-        als.alMotion.changeAngles('RShoulderPitch',  -2, 0.08);
+        //als.alMotion.changeAngles('HeadPitch',  2, 0.08);
     });
     $('#action007-btn').on('click', function(){
-        als.alMotion.changeAngles('RShoulderPitch',  -2, 0.08);
+
     });
     $('#action008-btn').on('click', function(){
-        als.alMotion.changeAngles('RShoulderPitch',  -2, 0.08);
+
+    });
+    $('#action009-btn').on('click', function(){
+
+    });
+    $('#action010-btn').on('click', function(){
+        //als.alMotion.changeAngles('LElbowYaw',  -2, 0.08);
+        //als.alRobotPosturer.goToPosture("Crouch");
+        var _rad = toRadian(90);
+        console.log(_rad);
     });
     $('#url-free-btn').on('click', function(){
         console.log("url-free-btn");
@@ -129,15 +160,51 @@ $(function(){
         console.log(_image);
     });
 
-    $('#test-btn').on('click', function(){
-
+    $('#intelligent001-btn').on('click', function(){
+        als.alALAutonomousLife.getState().done(function(val)
+            {
+                console.log(val);
+                alert(val);
+            }
+        );
     });
-    $('#test-btn').on('click', function(){
+    $('#intelligent002-btn').on('click', function(){
+        als.alALAutonomousLife.setState("solitary");
+    });
+    $('#intelligent003-btn').on('click', function(){
+        als.alALAutonomousLife.setState("interactive");
+    });
+    $('#intelligent004-btn').on('click', function(){
+        als.alALAutonomousLife.setState("disabled");
+    });
+    $('#intelligent005-btn').on('click', function(){
+        als.alALAutonomousLife.setState("safeguard");
+    });
 
+
+    $('#battery-btn').on('click', function(){
+        als.alALBattery.getBatteryCharge().done(function(val)
+            {
+                console.log(val);
+                alert(val);
+            }
+        );
+    });
+
+    $('#test-btn').on('click', function(){
+/*
+intelligent001-btn
+State.setState("disabled") #Turn off AutoIntelligent
+6   currentState = State.getState()
+*/
     });
 });
 
 function hoge(){
     console.log("hoge");
 }
+
+function toRadian(degrees) {
+  return degrees * Math.PI / 180;
+};
 

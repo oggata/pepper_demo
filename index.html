@@ -12,7 +12,7 @@
     <br>
     IPアドレスはPepperの胸のボタンを押すと、教えてくれるよ. Pepperと同じネットワークにつないでね。
     <br>
-    IPアドレス:<input type="text" id="ip"></input>
+    IPアドレス:<input type="text" id="ip" value="192.168.0.1"></input>
     <button type="button" id="connect-btn">接続</button>
 
     <br>
@@ -20,22 +20,49 @@
     <button type="button" id="volume40-btn">音量40</button>
     <br>
 
-    <input type="text" id="talk-text"></input>
+    <input type="text" id="talk-text" value="おはよう"></input>
     <button type="button" id="talk-text-btn">自由記述を話す</button>
-
+    <br>
+    <br>
     <br>
     <button type="button" id="talk-hello-btn">おはよう</button>
 	<br>
-
+    <br>
+    アクション
+    <br>
+    http://doc.aldebaran.com/2-1/family/nao_dcm/actuator_sensor_names.html
+    <br>
     <button type="button" id="action000-btn">アクションリセット</button>
-    <button type="button" id="action001-btn">アクション1</button>
-    <button type="button" id="action002-btn">アクション2</button>
-    <button type="button" id="action003-btn">アクション3</button>
-    <button type="button" id="action004-btn">アクション4</button>
-    <button type="button" id="action005-btn">アクション5</button>
-    <button type="button" id="action006-btn">アクション6</button>
-    <button type="button" id="action007-btn">アクション7</button>
-    <button type="button" id="action008-btn">アクション8</button>
+    <br>
+    角度：<input type="text" id="degress" value="30"></input>度
+    速度：<input type="text" id="speed" value="0.08"></input>
+    <br>
+    <button type="button" id="action001-btn">RShoulderPitch</button>
+    <button type="button" id="action002-btn">LShoulderPitch</button>
+    <button type="button" id="action003-btn">RElbowRoll</button>
+    <button type="button" id="action004-btn">LElbowRoll</button>
+    <button type="button" id="action005-btn">HeadPitch</button>
+    <button type="button" id="action006-btn">null</button>
+    <button type="button" id="action007-btn">null</button>
+    <button type="button" id="action008-btn">null</button>
+    <button type="button" id="action009-btn">null</button>
+    <button type="button" id="action010-btn">null</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    AutoIntelligentの設定
+    <br>
+    http://doc.aldebaran.com/2-1/naoqi/core/autonomouslife_advanced.html
+    <br>
+
+    <button type="button" id="intelligent001-btn">状態の取得</button>
+    <button type="button" id="intelligent002-btn">solitary</button>
+    <button type="button" id="intelligent003-btn">interactive</button>
+    <button type="button" id="intelligent004-btn">disabled</button>
+    <button type="button" id="intelligent005-btn">safeguard</button>
+    <br>
+    <br>
 
     <br>
     <input type="text" id="url-text"></input>
@@ -53,6 +80,7 @@
     <br>
     <button type="button" id="sleep-btn">スリープモードに変更させる</button>
     <button type="button" id="wakeup-btn">起動モードに変更させる</button>
+    <button type="button" id="battery-btn">バッテリー残量をみる</button>
     <br>
 
 </body>
