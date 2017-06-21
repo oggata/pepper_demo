@@ -26,6 +26,7 @@ $(function(){
             });
             qis.service('ALAudioDevice').done(function(ins){
                 als.alALAudioDevice = ins;
+                als.alALAudioDevice.setOutputVolume(0);
             });
             qis.service('ALAnimatedSpeech').done(function(ins){
                 als.alAnimatedSpeech = ins;
@@ -41,6 +42,18 @@ $(function(){
             });
             qis.service('ALBattery').done(function(ins){
                 als.alALBattery = ins;
+            });
+            qis.service('ALBasicAwareness').done(function(ins){
+                als.alALBasicAwareness = ins;
+            });
+            qis.service('ALAutonomousMoves').done(function(ins){
+                als.alALAutonomousMoves = ins;
+            });
+            qis.service('ALLeds').done(function(ins){
+                als.alALLeds = ins;
+            });
+            qis.service('ALSystem').done(function(ins){
+                als.alALSystem = ins;
             });
             /*
             qis.service('ALRobotPosturer').done(function(ins){
@@ -97,7 +110,6 @@ $(function(){
         als.alMotion.setBreathEnabled("All", false);
     });
 
-
     //http://doc.aldebaran.com/2-1/family/nao_dcm/actuator_sensor_names.html
     $('#action001-btn').on('click', function(){
         var _degress = $('#degress').val();
@@ -125,7 +137,6 @@ $(function(){
         als.alMotion.changeAngles('HeadPitch',  _rad, 0.08);
     });
     $('#action006-btn').on('click', function(){
-        //als.alMotion.changeAngles('HeadPitch',  2, 0.08);
     });
     $('#action007-btn').on('click', function(){
 
@@ -137,10 +148,6 @@ $(function(){
 
     });
     $('#action010-btn').on('click', function(){
-        //als.alMotion.changeAngles('LElbowYaw',  -2, 0.08);
-        //als.alRobotPosturer.goToPosture("Crouch");
-        var _rad = toRadian(90);
-        console.log(_rad);
     });
     $('#url-free-btn').on('click', function(){
         console.log("url-free-btn");
@@ -181,6 +188,72 @@ $(function(){
         als.alALAutonomousLife.setState("safeguard");
     });
 
+    $('#tablet-sleep-btn').on('click', function(){
+        als.alALTabletService.goToSleep();
+    });
+    $('#tablet-wakeup-btn').on('click', function(){
+        als.alALTabletService.wakeUp();
+    });
+
+    $('#autonomouseon-btn').on('click', function(){
+        als.alALBasicAwareness.startAwareness();
+        als.alALAutonomousMoves.setBackgroundStrategy("backToNeutral");
+        //als.alALAutonomousMoves.setExpressiveListeningEnabled("Whether");
+    });
+    $('#autonomouseoff-btn').on('click', function(){
+        als.alALBasicAwareness.stopAwareness();
+        als.alALAutonomousMoves.setBackgroundStrategy("none");
+        //als.alALAutonomousMoves.setExpressiveListeningEnabled("not");
+    });
+
+    $('#allcolorred-btn').on('click', function(){
+        als.alALLeds.fadeRGB("AllLeds","red",0.0);
+        als.alALLeds.fadeRGB("FaceLeds","red",0.0);
+        als.alALLeds.fadeRGB("EarLeds","red",0.0);
+    });
+    $('#allcolorblue-btn').on('click', function(){
+        als.alALLeds.fadeRGB("AllLeds","blue",0.0);
+        als.alALLeds.fadeRGB("FaceLeds","blue",0.0);
+        als.alALLeds.fadeRGB("EarLeds","blue",0.0);
+    });
+    $('#allcolorgreen-btn').on('click', function(){
+        als.alALLeds.fadeRGB("AllLeds","green",0.0);
+        als.alALLeds.fadeRGB("FaceLeds","green",0.0);
+        als.alALLeds.fadeRGB("EarLeds","green",0.0);
+    });
+    $('#allcolorreset-btn').on('click', function(){ 
+        als.alALLeds.reset("AllLeds");
+    });
+
+    $('#actionmove000-btn').on('click', function(){ 
+        als.alMotion.moveToward(0,0.0,0.0); // 0.1 = 10cm前に移動
+    });
+    $('#actionmove001-btn').on('click', function(){ 
+        als.alMotion.moveToward(0.2,0.0,0.0); // 0.1 = 10cm前に移動
+    });
+    $('#actionmove002-btn').on('click', function(){ 
+        als.alMotion.moveToward(-0.2,0.0,0.0);
+    });
+    $('#actionmove003-btn').on('click', function(){ 
+        als.alMotion.moveToward(0,0,0.2);
+    });
+    $('#actionmove004-btn').on('click', function(){ 
+        als.alMotion.moveToward(0,0,-0.2);
+    });
+
+
+    $('#rest-btn').on('click', function(){ 
+        als.alMotion.rest();
+    });
+    $('#wakeup2-btn').on('click', function(){ 
+        als.alMotion.wakeUp();
+    });
+    $('#reboot-btn').on('click', function(){ 
+        als.alALSystem.reboot();
+    });
+    $('#shutdown-btn').on('click', function(){ 
+        als.alALSystem.shutdown();
+    });
 
     $('#battery-btn').on('click', function(){
         als.alALBattery.getBatteryCharge().done(function(val)
@@ -192,11 +265,6 @@ $(function(){
     });
 
     $('#test-btn').on('click', function(){
-/*
-intelligent001-btn
-State.setState("disabled") #Turn off AutoIntelligent
-6   currentState = State.getState()
-*/
     });
 });
 
